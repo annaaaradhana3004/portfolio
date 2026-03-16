@@ -1,4 +1,4 @@
- <!-- CAMPAIGN GRAPHICS -->
+<!-- CAMPAIGN GRAPHICS -->
     <div class="g-item" data-cat="campaign" onclick="openLB(this)">
       <img src="images/joyland-ad.jpg" alt="Joyland School Ad"/>
       <div class="g-tag">Campaign</div>
@@ -185,10 +185,9 @@
 
   .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
   .g-item { position: relative; overflow: hidden; cursor: pointer; background: var(--light); border-top: 3px solid var(--accent); }
-  .g-item img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.3s; }
+  .g-item { display: block; }
+  .g-item img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.3s; background: var(--light); }
   .g-item img[src=""], .g-item img:not([src]) { display: none; }
-  .g-item { display: none; }
-  .g-item.loaded { display: block; }
   .g-item:hover img { transform: scale(1.04); }
   .g-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.75)); padding: 20px 16px 14px; opacity: 0; transition: opacity 0.2s; }
   .g-item:hover .g-overlay { opacity: 1; }
@@ -547,11 +546,9 @@
     grid.appendChild(div);
   }
 
-  // Hide gallery items with broken images
-  document.querySelectorAll('.g-item img').forEach(img => {
-    img.onload = () => img.closest('.g-item').classList.add('loaded');
-    img.onerror = () => img.closest('.g-item').remove();
-    if (img.complete && img.naturalWidth) img.closest('.g-item').classList.add('loaded');
+  // Show all gallery items regardless of image load status
+  document.querySelectorAll('.g-item').forEach(item => {
+    item.style.display = 'block';
   });
 
   function filterG(cat, btn) {
